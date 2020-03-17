@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.bd10.knowledgesystems.dao.others.ConsultDao">
+
+    <delete id="delConsult"  parameterType="java.lang.Integer">
+          DELETE FROM `consult`  WHERE  consult_id=#{consult_id};
+    </delete>
+    <delete id="delFeedBack">
+        DELETE   FROM  feedback  WHERE   feedback_id=#{feedback_id}
+    </delete>
+    <select id="queryCSContent"  resultType="java.lang.String">
+     SELECT consult_content FROM `consult`  WHERE consult_id=#{consult_id}
+    </select>
+
+    <insert id="addConsult">
+        INSERT  into consult (consult_name,consult_phone,consult_work,consult_email,consult_wechat,clause_foreign_key,consult_createtime,consult_content)  VALUES
+      (#{consult_name},#{consult_phone},#{consult_work},#{consult_email},#{consult_wechat},#{clause_foreign_key},NOW(),#{consult_content})
+    </insert>
+</mapper>

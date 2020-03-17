@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.bd10.knowledgesystems.dao.laws.ZuzhiDao">
+
+<select id="getzuzhiByType"   resultType="com.bd10.knowledgesystems.model.entity.RegulationType">
+ SELECT   *  FROM   regulations_trype  WHERE   cengji=#{cengji}
+</select>
+    <select id="getzuzhiBySid"   resultType="com.bd10.knowledgesystems.model.entity.RegulationType">
+        select * from  regulations_trype  WHERE   shangji=#{sid};
+    </select>
+    <delete id="delzuzhi">
+        DELETE  FROM  regulations_trype  WHERE  regulations_type_id=#{id}
+    </delete>
+
+    <insert id="addYijiType">
+        INSERT  INTO  regulations_trype  (regulations_type_name) VALUES (#{regulations_type_name})
+    </insert>
+    
+    <insert id="addErjiType">
+        INSERT  INTO  regulations_trype  (regulations_type_name,cengji,shangji) VALUES (#{regulations_type_name},#{cengji},#{shangji})
+    </insert>
+</mapper>

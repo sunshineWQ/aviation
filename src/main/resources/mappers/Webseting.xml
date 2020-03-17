@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.bd10.knowledgesystems.dao.others.WebDao">
+
+    <select id="queryWebSeting"  resultType="com.bd10.knowledgesystems.model.entity.WebSeting">
+   SELECT * FROM `webseting`  WHERE  web_id=1;
+    </select>
+    <update id="updateWeb">
+        UPDATE  webseting  SET  web_status=#{web_status},web_title=#{web_title},web_domain_name=#{web_domain_name},web_email=#{web_email} ,web_logo_path=#{web_logo_path} WHERE  web_id=1;
+    </update>
+</mapper>

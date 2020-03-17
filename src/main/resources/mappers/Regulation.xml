@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.bd10.knowledgesystems.dao.laws.RegulationsDao">
+
+<select id="queryAllRegulations"  resultType="com.bd10.knowledgesystems.model.vo.RegulationVo">
+SELECT r.*,t.regulations_type_name,t.cengji,t.shangji FROM `regulations`   r LEFT JOIN  regulations_trype   t  ON   r.`classify_foreign key`=t.regulations_type_id;
+</select>
+    <insert id="addRegulations">
+       INSERT  INTO   regulations  (regulations_part_no,regulations_part_no_alias,regulations_version,regulations_name,regulations_show_status,regulations_icon_path,regulations_pdf_name,regulations_pdf_path,regulations_version_explain)VALUES
+       (#{regulations_part_no},#{regulations_part_no_alias},#{regulations_version},#{regulations_name},#{regulations_show_status},#{regulations_icon_path},#{regulations_pdf_name},#{regulations_pdf_path},#{regulations_version_explain})
+    </insert>
+    <select id="queryRegulationByType"  resultType="com.bd10.knowledgesystems.model.vo.RegulationVo">
+        SELECT * FROM `regulations`  r  LEFT JOIN   regulations_trype  t  ON  r.`classify_foreign key`=t.regulations_type_id  WHERE  r.`classify_foreign key`=#{classify_foreign_key};
+    </select>
+    <select id="queryAllDirectory"  resultType="com.bd10.knowledgesystems.model.entity.Directory">
+    SELECT * FROM `directory`  WHERE regulations_foreign_key = #{regulations_foreign_key} ORDER BY `index`;
+    </select>
+
+    <insert id="addDirectory">
+        INSERT  INTO  `directory` (directory_name,`index`,regulations_foreign_key,`level`)  VALUES (#{directory_name},#{index},#{regulations_foreign_key},#{level});
+    </insert>
+    <delete id="delDirectory">
+        DELETE   FROM  `directory`  WHERE   directory_id=#{directory_id}
+    </delete>
+    <delete id="delRegulation">
+      DELETE  FROM  regulations  WHERE  regulations_id=#{regulations_id}
+    </delete>
+    <select id="queryminhang"  resultType="com.bd10.knowledgesystems.model.vo.RegulationTypeVo">
+           SELECT * FROM `regulations_trype` WHERE  shangji=1;
+    </select>
+    <select id="queryRegulationsByErji"  resultType="com.bd10.knowledgesystems.model.vo.RegulationVo">
+      SELECT r.*,t.regulations_type_name,t.cengji,t.shangji FROM `regulations`   r LEFT JOIN  regulations_trype   t  ON   r.`classify_foreign key`=t.regulations_type_id  WHERE `classify_foreign key`=#{classify_foreign_key}
+    </select>
+</mapper>

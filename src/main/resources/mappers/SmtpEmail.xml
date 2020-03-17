@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper  namespace="com.bd10.knowledgesystems.dao.others.SmtpEmailDao">
+        <select id="querySmtpEmail"  resultType="com.bd10.knowledgesystems.model.dto.SmtpEmail">
+            SELECT * FROM `email_smtp_setting`  WHERE  smtp_id=1;
+        </select>
+    <update id="updataSmtp">
+        UPDATE  `email_smtp_setting`  SET  smtp_email=#{smtp_email},smtp_server=#{smtp_server},smtp_username=#{smtp_username},smtp_password=#{smtp_password},`number`=#{number} WHERE  smtp_id=1;
+    </update>
+    </mapper>

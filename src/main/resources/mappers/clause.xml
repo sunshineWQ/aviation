@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.bd10.knowledgesystems.dao.laws.ClauseDao">
+   <insert id="addClauseDao">
+    INSERT  INTO  clause  (directory_foreign_key,clause_no,clause_no_alias,clause_version,clause_title,clause_content,clause_antistop,clause_createtime)
+      VALUES(#{directory_foreign_key},#{clause_no},#{clause_no_alias},#{clause_version},#{clause_title},#{clause_content},#{clause_antistop},NOW())
+   </insert>
+
+    <select id="queryClauseByDirectory_id"  resultType="com.bd10.knowledgesystems.model.entity.Clause">
+         SELECT  * FROM `clause`  WHERE   directory_foreign_key=#{directory_foreign_key} ;
+    </select>
+    <select id="queryAllClause"  resultType="com.bd10.knowledgesystems.model.vo.RegulationClasueVo">
+          SELECT * FROM `clause` c  LEFT JOIN  regulations  r  ON   c.regulation_foregin_key=r.regulations_id;
+    </select>
+
+    <delete id="delClause">
+        DELETE FROM `clause` WHERE  clause_id=#{clause_id};
+    </delete>
+    <select id="queryClauseDetailById"  resultType="com.bd10.knowledgesystems.model.entity.Clause">
+          SELECT clause_id, clause_content FROM `clause`  WHERE  clause_id=#{clause_id};
+    </select>
+    <select id="queryClause"  resultType="com.bd10.knowledgesystems.model.vo.RegulationClasueVo">
+      SELECT * FROM `clause`c  LEFT JOIN  regulations  r  ON  c.regulation_foregin_key=r.regulations_id
+        <where>
+        <if test="regulations_id !=null  and regulations_id !=''">
+             AND    r.regulations_id=#{regulations_id}
+        </if>
+            <if test="clause_no !=null  and clause_no !=''">
+                AND   clause_no  LIKE concat ('%',#{clause_no},'%')
+            </if>
+            <if test="clause_antistop !=null  and clause_antistop !=''">
+                AND   clause_antistop LIKE concat ('%',#{clause_antistop},'%')
+            </if>
+
+        </where>
+
+    </select>
+
+</mapper>
